@@ -22,9 +22,33 @@
  * SOFTWARE.
  */
 
-import { binder } from "@scm-manager/ui-extensions";
-import AvatarRenderer from "./AvatarRenderer";
-import AvatarConfig from "./AvatarConfig";
+import { Icon } from "@scm-manager/ui-components";
+import React, { FC } from "react";
+import styled from "styled-components";
+import { Avatar } from "../avatars";
 
-binder.bind("repos.repository-avatar.primary", AvatarRenderer);
-binder.bind("repo-config.details", AvatarConfig);
+const IconWrapper = styled.div`
+  width: 64px;
+  height: 64px;
+  background-color: ${props => props.backgroundColor};
+  font-size: 2.5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+`;
+
+type Props = {
+  avatar: Avatar;
+};
+
+const PredefinedAvatar: FC<Props> = ({ avatar }) => {
+  return (
+    <IconWrapper backgroundColor={avatar.color}>
+      <Icon name={avatar.iconName} color="white" />
+    </IconWrapper>
+  );
+};
+
+export default PredefinedAvatar;

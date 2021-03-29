@@ -21,10 +21,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package com.cloudogu.repositoryavatar;
 
-import { binder } from "@scm-manager/ui-extensions";
-import AvatarRenderer from "./AvatarRenderer";
-import AvatarConfig from "./AvatarConfig";
+import com.fasterxml.jackson.annotation.JsonInclude;
+import de.otto.edison.hal.HalRepresentation;
+import de.otto.edison.hal.Links;
+import lombok.Getter;
+import lombok.Setter;
 
-binder.bind("repos.repository-avatar.primary", AvatarRenderer);
-binder.bind("repo-config.details", AvatarConfig);
+@Getter
+@Setter
+@SuppressWarnings("squid:S2160") // we do not need equals for dto
+public class AvatarDto extends HalRepresentation {
+
+  private AvatarType type;
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  private String iconName;
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  private String color;
+
+  AvatarDto() {}
+
+  public AvatarDto(Links links) {
+    super(links);
+  }
+  }

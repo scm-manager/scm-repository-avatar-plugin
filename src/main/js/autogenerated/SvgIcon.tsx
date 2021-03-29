@@ -22,10 +22,23 @@
  * SOFTWARE.
  */
 
-describe("frontend unit tests", () => {
+import React, { FC } from "react";
 
-  it("some test", () => {
-    expect( 21 * 2 ).toBe(42);
-  });
+type Props = {
+  text: string;
+  iconColor: string;
+  backgroundColor: string;
+};
 
-});
+const SvgIcon: FC<Props> = ({ text, iconColor, backgroundColor }) => {
+  return (
+    <svg width="64px" height="64px" fontFamily="monospace">
+      <rect width="64px" height="64px" fill={backgroundColor} rx="5px" ry="5px" />
+      <text x="7" y="47" fill={iconColor} fontSize="2.5em">
+        {text}
+      </text>
+    </svg>
+  );
+};
+
+export default SvgIcon;

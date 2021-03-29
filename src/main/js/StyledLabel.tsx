@@ -22,9 +22,20 @@
  * SOFTWARE.
  */
 
-import { binder } from "@scm-manager/ui-extensions";
-import AvatarRenderer from "./AvatarRenderer";
-import AvatarConfig from "./AvatarConfig";
+import React from "react";
+import { FC } from "react";
+import styled from "styled-components";
 
-binder.bind("repos.repository-avatar.primary", AvatarRenderer);
-binder.bind("repo-config.details", AvatarConfig);
+const Label = styled.span`
+  color: #363636;
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.5em;
+`;
+
+const StyledLabel: FC = ({ children }) => {
+  return <Label>{children}</Label>;
+};
+
+export default StyledLabel;

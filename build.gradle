@@ -28,13 +28,20 @@ plugins {
 }
 
 dependencies {
+  // we don't want the transitive dependencies in the resulting smp ...
+  implementation("org.jboss.resteasy:resteasy-multipart-provider:4.5.8.Final") {
+    transitive = false
+  }
+  implementation("commons-io:commons-io:2.5")
+  // ... but we want them on the classpath for testing
+  testImplementation "org.jboss.resteasy:resteasy-multipart-provider:4.5.8.Final"
 }
 
 scmPlugin {
   scmVersion = "2.16.1-SNAPSHOT"
-  displayName = "SCM-Repository-Avatar-Plugin"
+  displayName = "Repository Avatar"
   description = "Enables different types of custom repository avatars"
-  author = "Sebastian Sdorra"
+  author = "Cloudogu GmbH"
   category = "Information"
 
 }

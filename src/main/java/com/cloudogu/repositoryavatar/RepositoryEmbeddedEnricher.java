@@ -21,10 +21,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package com.cloudogu.repositoryavatar;
 
-import { binder } from "@scm-manager/ui-extensions";
-import AvatarRenderer from "./AvatarRenderer";
-import AvatarConfig from "./AvatarConfig";
+import sonia.scm.api.v2.resources.Enrich;
+import sonia.scm.api.v2.resources.HalAppender;
+import sonia.scm.api.v2.resources.HalEnricher;
+import sonia.scm.api.v2.resources.HalEnricherContext;
+import sonia.scm.plugin.Extension;
+import sonia.scm.repository.Repository;
 
-binder.bind("repos.repository-avatar.primary", AvatarRenderer);
-binder.bind("repo-config.details", AvatarConfig);
+import javax.inject.Inject;
+
+@Extension
+@Enrich(Repository.class)
+public class RepositoryEmbeddedEnricher implements HalEnricher {
+
+  private final AvatarStore avatarStore;
+  private final AvatarMapper mapper;
+
+  @Inject
+  public RepositoryEmbeddedEnricher(AvatarStore avatarStore, AvatarMapper mapper) {
+    this.avatarStore = avatarStore;
+    this.mapper = mapper;
+  }
+
+  @Override
+  public void enrich(HalEnricherContext context, HalAppender appender) {
+    Repository repository = context.oneRequireByType(Repository.class);
+
+    AvatarDto dto = mapper.map(repository, avatarStore.getAvatar(repository));
+    appender.appendEmbedded("avatar", dto);
+  }
+}

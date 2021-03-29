@@ -21,10 +21,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+package com.cloudogu.repositoryavatar;
 
-import { binder } from "@scm-manager/ui-extensions";
-import AvatarRenderer from "./AvatarRenderer";
-import AvatarConfig from "./AvatarConfig";
+import com.google.inject.AbstractModule;
+import org.mapstruct.factory.Mappers;
+import sonia.scm.plugin.Extension;
 
-binder.bind("repos.repository-avatar.primary", AvatarRenderer);
-binder.bind("repo-config.details", AvatarConfig);
+@Extension
+public class MapperModule extends AbstractModule {
+
+  @Override
+  protected void configure() {
+    bind(AvatarMapper.class).to(Mappers.getMapper(AvatarMapper.class).getClass());
+  }
+}

@@ -22,9 +22,24 @@
  * SOFTWARE.
  */
 
-import { binder } from "@scm-manager/ui-extensions";
-import AvatarRenderer from "./AvatarRenderer";
-import AvatarConfig from "./AvatarConfig";
+import React, { FC } from "react";
+import styled from "styled-components";
+// @ts-ignore Unknown module for svg but the file does exist
+import placeholder from "./placeholder.svg";
 
-binder.bind("repos.repository-avatar.primary", AvatarRenderer);
-binder.bind("repo-config.details", AvatarConfig);
+const StyledImage = styled.img`
+  border-radius: 5px;
+  width: 64px;
+  height: 64px;
+  margin-bottom: -0.4rem;
+`;
+
+type Props = {
+  imageLink: string;
+};
+
+const UploadedAvatar: FC<Props> = ({ imageLink }) => {
+  return <StyledImage src={imageLink || placeholder} alt="Avatar Preview" />;
+};
+
+export default UploadedAvatar;

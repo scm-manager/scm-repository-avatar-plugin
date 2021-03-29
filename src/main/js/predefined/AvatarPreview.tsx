@@ -22,9 +22,24 @@
  * SOFTWARE.
  */
 
-import { binder } from "@scm-manager/ui-extensions";
-import AvatarRenderer from "./AvatarRenderer";
-import AvatarConfig from "./AvatarConfig";
+import React, { FC, ReactChild } from "react";
+import StyledLabel from "../StyledLabel";
+import { useTranslation } from "react-i18next";
 
-binder.bind("repos.repository-avatar.primary", AvatarRenderer);
-binder.bind("repo-config.details", AvatarConfig);
+type Props = {
+  avatar: ReactChild;
+  className?: string;
+};
+
+const AvatarPreview: FC<Props> = ({ avatar, className }) => {
+  const [t] = useTranslation("plugins");
+
+  return (
+    <div className={className || "mx-4"}>
+      <StyledLabel>{t("scm-repository-avatar-plugin.avatarConfig.preview")}</StyledLabel>
+      {avatar}
+    </div>
+  );
+};
+
+export default AvatarPreview;

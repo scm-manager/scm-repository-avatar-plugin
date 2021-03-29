@@ -1,5 +1,39 @@
 {
   "scm-repository-avatar-plugin": {
-
+    "avatarConfig": {
+      "subtitle": "Avatar Konfiguration",
+      "submit": "Avatar speichern",
+      "submitNotification": "Der Avatar wurde erfolgreich aktualisiert.",
+      "preview": "Vorschau",
+      "uploadLimit": "Die Datei ist zu groß. Bitte wählen Sie eine Bilddatei unter 5 MB.",
+      "uploadInfo": "Max. 5 MB. Hochgeladene Avatare werden auf 64x64 Pixel skaliert.",
+      "invalidImageFormat": "Das ausgewählte Dateiformat wird nicht unterstützt. Bitte nutzen Sie eines der folgenden Bildformate: jpg, jpeg, gif, png, svg"
+    },
+    "avatarTypes": {
+      "label": "Avatar wählen",
+      "auto": {
+        "label": "Automatisch generierter Avatar",
+        "helpText": "Es wird ein automatisch generierter Avatar verwendet."
+      },
+      "predefined": {
+        "label": "Vordefinierter Avatar",
+        "helpText": "Der Avatar kann aus einer Vorauswahl von Icons und Farben gewählt werden."
+      },
+      "uploaded": {
+        "label": "Hochgeladener Avatar",
+        "helpText": "Das Avatar wird aus einem hochgeladenen Bild im Format 64x64 Pixel erzeugt."
+      }
+    },
+    "avatarSelector": {
+      "avatarModal": "Avatar auswählen",
+      "selectButton": "Auswählen",
+      "colors": "Farben",
+      "icons": {
+        "technology": "Technologische Icons",
+        "business": "Geschäftliche Icons",
+        "science": "Wissenschaftliche Icons",
+        "other": "Sonstige Icons"
+      }
+    }
   }
 }
