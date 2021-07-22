@@ -28,11 +28,12 @@ type Props = {
   text: string;
   iconColor: string;
   backgroundColor: string;
+  className?: string;
 };
 
-const SvgIcon: FC<Props> = ({ text, iconColor, backgroundColor }) => {
+const SvgIcon: FC<Props> = ({ text, iconColor, backgroundColor, className }) => {
   return (
-    <svg width="64px" height="64px" fontFamily="monospace">
+    <svg viewBox="0 0 64 64" fontFamily="monospace" className={className}>
       <rect width="64px" height="64px" fill={backgroundColor} rx="5px" ry="5px" />
       <text x="7" y="47" fill={iconColor} fontSize="2.5em">
         {text}

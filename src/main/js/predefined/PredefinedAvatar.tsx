@@ -27,7 +27,7 @@ import React, { FC } from "react";
 import styled from "styled-components";
 import { Avatar } from "../avatars";
 
-const IconWrapper = styled.div`
+const IconWrapper = styled.div<{ backgroundColor: string }>`
   width: 64px;
   height: 64px;
   background-color: ${props => props.backgroundColor};
@@ -45,8 +45,8 @@ type Props = {
 
 const PredefinedAvatar: FC<Props> = ({ avatar }) => {
   return (
-    <IconWrapper backgroundColor={avatar.color}>
-      <Icon name={avatar.iconName} color="white" />
+    <IconWrapper backgroundColor={avatar.color || "#363636"} className="predefined-avatar">
+      <Icon name={avatar.iconName || "bug"} color="white" />
     </IconWrapper>
   );
 };

@@ -22,9 +22,8 @@
  * SOFTWARE.
  */
 
-import { FC, useState } from "react";
+import React, { FC, useState } from "react";
 import { Button, FullscreenModal, Icon } from "@scm-manager/ui-components";
-import React from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import AvatarPreview from "./AvatarPreview";
@@ -38,7 +37,7 @@ const Selector = styled.div`
   margin-bottom: 0.46rem;
 `;
 
-const Chooser = styled(Icon)`
+const Chooser = styled(Icon)<{ backgroundColor: string }>`
   background-color: ${props => props.backgroundColor};
   height: 64px;
   width: 64px;
@@ -82,7 +81,7 @@ const PredefinedAvatarSelector: FC<Props> = ({ icon, color, setIcon, setColor, d
               onClick={() => setIcon(iconName)}
               backgroundColor={color}
               color="white"
-              index={index}
+              key={index}
             />
           ))}
         </Palette>
@@ -95,12 +94,15 @@ const PredefinedAvatarSelector: FC<Props> = ({ icon, color, setIcon, setColor, d
       <FullscreenModal
         body={
           <>
-            <AvatarPreview avatar={<PredefinedAvatar avatar={{ iconName: icon, color: color }} />} className="mr-4" />
+            <AvatarPreview
+              avatar={<PredefinedAvatar avatar={{ iconName: icon, color: color, type: "PREDEFINED", _links: {} }} />}
+              className="mr-4"
+            />
             <hr />
             <StyledLabel>{t("scm-repository-avatar-plugin.avatarSelector.colors")}</StyledLabel>
             <Palette>
               {colors.map(c => (
-                <Chooser backgroundColor={c} onClick={() => setColor(c)}>
+                <Chooser backgroundColor={c || "#363636"} onClick={() => setColor(c)} name="none">
                   {""}
                 </Chooser>
               ))}
@@ -121,7 +123,9 @@ const PredefinedAvatarSelector: FC<Props> = ({ icon, color, setIcon, setColor, d
 
   return (
     <Selector>
-      <AvatarPreview avatar={<PredefinedAvatar avatar={{ iconName: icon, color: color }} />} />
+      <AvatarPreview
+        avatar={<PredefinedAvatar avatar={{ iconName: icon, color: color, type: "PREDEFINED", _links: {} }} />}
+      />
       <Button
         color="info"
         action={() => setAvatarModal(true)}
