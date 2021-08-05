@@ -22,6 +22,7 @@
  * SOFTWARE.
  */
 
+import classNames from "classnames";
 import React, { FC } from "react";
 
 type Props = {
@@ -33,7 +34,7 @@ type Props = {
 
 const SvgIcon: FC<Props> = ({ text, iconColor, backgroundColor, className }) => {
   return (
-    <svg viewBox="0 0 64 64" fontFamily="monospace" className={className}>
+    <svg viewBox="0 0 64 64" className={classNames("is-family-monospace", className)}>
       <rect width="64px" height="64px" fill={backgroundColor} rx="5px" ry="5px" />
       <text x="7" y="47" fill={iconColor} fontSize="2.5em">
         {text}
