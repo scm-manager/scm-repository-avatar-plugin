@@ -23,44 +23,24 @@
  */
 package com.cloudogu.repositoryavatar;
 
-import de.otto.edison.hal.Links;
-import org.mapstruct.Context;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.ObjectFactory;
-import sonia.scm.api.v2.resources.LinkBuilder;
-import sonia.scm.api.v2.resources.ScmPathInfoStore;
+import sonia.scm.api.v2.resources.HalAppender;
 import sonia.scm.repository.RepositoryCoordinates;
 
 import javax.inject.Inject;
-import javax.inject.Provider;
 
-import static de.otto.edison.hal.Link.link;
-import static de.otto.edison.hal.Links.linkingTo;
+public class AvatarEnricher {
 
-@Mapper
-public abstract class AvatarMapper {
+  private final AvatarStore avatarStore;
+  private final AvatarMapper mapper;
 
   @Inject
-  Provider<ScmPathInfoStore> scmPathInfoStore;
-
-  @Mapping(target = "attributes", ignore = true)
-  abstract AvatarDto map(@Context RepositoryCoordinates repository, Avatar avatar);
-
-  @ObjectFactory
-  AvatarDto createDto(@Context RepositoryCoordinates repository, Avatar avatar) {
-    if (avatar.getType() == AvatarType.UPLOADED) {
-      Links.Builder links = linkingTo()
-        .single(link("avatar", createAvatarLink(repository)));
-      return new AvatarDto(links.build());
-    }
-    return new AvatarDto();
+  public AvatarEnricher(AvatarStore avatarStore, AvatarMapper mapper) {
+    this.avatarStore = avatarStore;
+    this.mapper = mapper;
   }
 
-  private String createAvatarLink(@Context RepositoryCoordinates repository) {
-    return new LinkBuilder(scmPathInfoStore.get().get(), AvatarResource.class)
-      .method("getUploadedAvatar")
-      .parameters(repository.getNamespace(), repository.getName())
-      .href();
+  public void enrich(HalAppender appender, RepositoryCoordinates repository) {
+    AvatarDto dto = mapper.map(repository, avatarStore.getAvatar(repository));
+    appender.appendEmbedded("avatar", dto);
   }
 }
