@@ -23,7 +23,7 @@
  */
 
 import React, { FC, useState } from "react";
-import { Button, FullscreenModal, Icon } from "@scm-manager/ui-components";
+import { Button, FullscreenModal } from "@scm-manager/ui-components";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import AvatarPreview from "./AvatarPreview";
@@ -37,17 +37,9 @@ const Selector = styled.div`
   margin-bottom: 0.46rem;
 `;
 
-const Chooser = styled(Icon)<{ backgroundColor: string }>`
-  background-color: ${props => props.backgroundColor};
+const Chooser = styled.div`
   height: 64px;
   width: 64px;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  font-size: 2.5rem;
-  color: white;
   margin-right: 1rem;
   margin-bottom: 0.75rem;
 `;
@@ -76,13 +68,9 @@ const PredefinedAvatarSelector: FC<Props> = ({ icon, color, setIcon, setColor, d
         <StyledLabel>{label}</StyledLabel>
         <Palette>
           {icons.map((iconName, index) => (
-            <Chooser
-              name={iconName}
-              onClick={() => setIcon(iconName)}
-              backgroundColor={color}
-              color="white"
-              key={index}
-            />
+            <Chooser onClick={() => setIcon(iconName)} color="white" key={index}>
+              <PredefinedAvatar avatar={{ type: "PREDEFINED", iconName, color, _links: {} }} />
+            </Chooser>
           ))}
         </Palette>
       </>
@@ -102,8 +90,8 @@ const PredefinedAvatarSelector: FC<Props> = ({ icon, color, setIcon, setColor, d
             <StyledLabel>{t("scm-repository-avatar-plugin.avatarSelector.colors")}</StyledLabel>
             <Palette>
               {colors.map(c => (
-                <Chooser backgroundColor={c || "#363636"} onClick={() => setColor(c)} name="none">
-                  {""}
+                <Chooser onClick={() => setColor(c)}>
+                  <PredefinedAvatar avatar={{ iconName: icon, color: c, type: "PREDEFINED", _links: {} }} />
                 </Chooser>
               ))}
             </Palette>

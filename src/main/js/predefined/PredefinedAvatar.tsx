@@ -24,31 +24,32 @@
 
 import { Icon } from "@scm-manager/ui-components";
 import React, { FC } from "react";
-import styled from "styled-components";
 import { Avatar } from "../avatars";
+import styled from "styled-components";
 
-const IconWrapper = styled.div<{ backgroundColor: string }>`
+const IconWrapper = styled.div`
   width: 64px;
   height: 64px;
-  background-color: ${props => props.backgroundColor};
   font-size: 2.5em;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
 `;
 
 type Props = {
   avatar: Avatar;
 };
 
-const PredefinedAvatar: FC<Props> = ({ avatar }) => {
-  return (
-    <IconWrapper backgroundColor={avatar.color || "#363636"} className="predefined-avatar">
-      <Icon name={avatar.iconName || "bug"} color="white" />
-    </IconWrapper>
-  );
-};
+const PredefinedAvatar: FC<Props> = ({ avatar }) => (
+  <svg viewBox="0 0 64 64">
+    <rect width="64px" height="64px" fill={avatar.color || "#363636"} rx="5px" ry="5px" />
+    <foreignObject x="0" y="0" width="64px" height="64px">
+      <IconWrapper>
+        <Icon name={avatar.iconName || "bug"} color="white" />
+      </IconWrapper>
+    </foreignObject>
+  </svg>
+);
 
 export default PredefinedAvatar;

@@ -25,11 +25,17 @@
 import React, { FC, ReactChild } from "react";
 import StyledLabel from "../StyledLabel";
 import { useTranslation } from "react-i18next";
+import styled from "styled-components";
 
 type Props = {
   avatar: ReactChild;
   className?: string;
 };
+
+const SizedAvatar = styled.div`
+  width: 64px;
+  height: 64px;
+`;
 
 const AvatarPreview: FC<Props> = ({ avatar, className }) => {
   const [t] = useTranslation("plugins");
@@ -37,7 +43,9 @@ const AvatarPreview: FC<Props> = ({ avatar, className }) => {
   return (
     <div className={className || "mx-4"}>
       <StyledLabel>{t("scm-repository-avatar-plugin.avatarConfig.preview")}</StyledLabel>
+      <SizedAvatar>
       {avatar}
+      </SizedAvatar>
     </div>
   );
 };
