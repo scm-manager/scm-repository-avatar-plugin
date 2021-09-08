@@ -23,44 +23,29 @@
  */
 package com.cloudogu.repositoryavatar;
 
-import de.otto.edison.hal.Links;
-import org.mapstruct.Context;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.ObjectFactory;
-import sonia.scm.api.v2.resources.LinkBuilder;
-import sonia.scm.api.v2.resources.ScmPathInfoStore;
+import sonia.scm.api.v2.resources.Enrich;
+import sonia.scm.api.v2.resources.HalAppender;
+import sonia.scm.api.v2.resources.HalEnricher;
+import sonia.scm.api.v2.resources.HalEnricherContext;
+import sonia.scm.plugin.Extension;
 import sonia.scm.repository.RepositoryCoordinates;
 
 import javax.inject.Inject;
-import javax.inject.Provider;
 
-import static de.otto.edison.hal.Link.link;
-import static de.otto.edison.hal.Links.linkingTo;
+@Extension
+@Enrich(RepositoryCoordinates.class)
+public class RepositoryCoordinatesEmbeddedEnricher implements HalEnricher {
 
-@Mapper
-public abstract class AvatarMapper {
+  private final AvatarEnricher enricher;
 
   @Inject
-  Provider<ScmPathInfoStore> scmPathInfoStore;
-
-  @Mapping(target = "attributes", ignore = true)
-  abstract AvatarDto map(@Context RepositoryCoordinates repository, Avatar avatar);
-
-  @ObjectFactory
-  AvatarDto createDto(@Context RepositoryCoordinates repository, Avatar avatar) {
-    if (avatar.getType() == AvatarType.UPLOADED) {
-      Links.Builder links = linkingTo()
-        .single(link("avatar", createAvatarLink(repository)));
-      return new AvatarDto(links.build());
-    }
-    return new AvatarDto();
+  public RepositoryCoordinatesEmbeddedEnricher(AvatarEnricher enricher) {
+    this.enricher = enricher;
   }
 
-  private String createAvatarLink(@Context RepositoryCoordinates repository) {
-    return new LinkBuilder(scmPathInfoStore.get().get(), AvatarResource.class)
-      .method("getUploadedAvatar")
-      .parameters(repository.getNamespace(), repository.getName())
-      .href();
+  @Override
+  public void enrich(HalEnricherContext context, HalAppender appender) {
+    RepositoryCoordinates repository = context.oneRequireByType(RepositoryCoordinates.class);
+    enricher.enrich(appender, repository);
   }
 }

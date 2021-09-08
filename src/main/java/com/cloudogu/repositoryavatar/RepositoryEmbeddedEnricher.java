@@ -36,20 +36,16 @@ import javax.inject.Inject;
 @Enrich(Repository.class)
 public class RepositoryEmbeddedEnricher implements HalEnricher {
 
-  private final AvatarStore avatarStore;
-  private final AvatarMapper mapper;
+  private final AvatarEnricher enricher;
 
   @Inject
-  public RepositoryEmbeddedEnricher(AvatarStore avatarStore, AvatarMapper mapper) {
-    this.avatarStore = avatarStore;
-    this.mapper = mapper;
+  public RepositoryEmbeddedEnricher(AvatarEnricher enricher) {
+    this.enricher = enricher;
   }
 
   @Override
   public void enrich(HalEnricherContext context, HalAppender appender) {
     Repository repository = context.oneRequireByType(Repository.class);
-
-    AvatarDto dto = mapper.map(repository, avatarStore.getAvatar(repository));
-    appender.appendEmbedded("avatar", dto);
+    enricher.enrich(appender, repository);
   }
 }

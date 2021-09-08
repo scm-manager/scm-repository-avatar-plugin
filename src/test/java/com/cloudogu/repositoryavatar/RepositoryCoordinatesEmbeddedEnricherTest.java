@@ -23,44 +23,44 @@
  */
 package com.cloudogu.repositoryavatar;
 
-import de.otto.edison.hal.Links;
-import org.mapstruct.Context;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.ObjectFactory;
-import sonia.scm.api.v2.resources.LinkBuilder;
-import sonia.scm.api.v2.resources.ScmPathInfoStore;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import sonia.scm.api.v2.resources.HalAppender;
+import sonia.scm.api.v2.resources.HalEnricherContext;
+import sonia.scm.repository.Repository;
 import sonia.scm.repository.RepositoryCoordinates;
+import sonia.scm.repository.RepositoryTestData;
 
-import javax.inject.Inject;
-import javax.inject.Provider;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-import static de.otto.edison.hal.Link.link;
-import static de.otto.edison.hal.Links.linkingTo;
+@ExtendWith(MockitoExtension.class)
+class RepositoryCoordinatesEmbeddedEnricherTest {
 
-@Mapper
-public abstract class AvatarMapper {
+  @Mock
+  private AvatarEnricher avatarEnricher;
 
-  @Inject
-  Provider<ScmPathInfoStore> scmPathInfoStore;
+  @InjectMocks
+  private RepositoryCoordinatesEmbeddedEnricher enricher;
 
-  @Mapping(target = "attributes", ignore = true)
-  abstract AvatarDto map(@Context RepositoryCoordinates repository, Avatar avatar);
+  @Mock
+  private HalEnricherContext context;
 
-  @ObjectFactory
-  AvatarDto createDto(@Context RepositoryCoordinates repository, Avatar avatar) {
-    if (avatar.getType() == AvatarType.UPLOADED) {
-      Links.Builder links = linkingTo()
-        .single(link("avatar", createAvatarLink(repository)));
-      return new AvatarDto(links.build());
-    }
-    return new AvatarDto();
+  @Mock
+  private HalAppender appender;
+
+  @Test
+  void shouldDelegate() {
+    Repository repository = RepositoryTestData.createHeartOfGold();
+    when(context.oneRequireByType(RepositoryCoordinates.class)).thenReturn(repository);
+
+    enricher.enrich(context, appender);
+
+    verify(avatarEnricher).enrich(appender, repository);
   }
 
-  private String createAvatarLink(@Context RepositoryCoordinates repository) {
-    return new LinkBuilder(scmPathInfoStore.get().get(), AvatarResource.class)
-      .method("getUploadedAvatar")
-      .parameters(repository.getNamespace(), repository.getName())
-      .href();
-  }
 }
