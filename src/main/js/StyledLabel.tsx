@@ -24,18 +24,16 @@
 
 import React from "react";
 import { FC } from "react";
-import styled from "styled-components";
-
-const Label = styled.span`
-  color: #363636;
-  display: block;
-  font-size: 1rem;
-  font-weight: 700;
-  margin-bottom: 0.5em;
-`;
+import classNames from "classnames";
 
 const StyledLabel: FC = ({ children }) => {
-  return <Label>{children}</Label>;
+  return (
+    <span
+      className={classNames("is-block", "is-size-6", "has-text-weight-semibold", "has-text-secondary-more", "mb-2")}
+    >
+      {children}
+    </span>
+  );
 };
 
 export default StyledLabel;
