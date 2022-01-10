@@ -78,6 +78,10 @@ const PredefinedAvatarSelector: FC<Props> = ({ icon, color, setIcon, setColor, d
   };
 
   const renderAvatarModal = () => {
+    if (!avatarModal) {
+      return null;
+    }
+
     return (
       <FullscreenModal
         body={
