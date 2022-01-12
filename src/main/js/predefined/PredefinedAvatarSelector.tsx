@@ -37,11 +37,15 @@ const Selector = styled.div`
   margin-bottom: 0.46rem;
 `;
 
-const Chooser = styled.div`
+const Chooser = styled.button`
   height: 64px;
   width: 64px;
   margin-right: 1rem;
   margin-bottom: 0.75rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  border-radius: 5px;
 `;
 
 const Palette = styled.div`
@@ -61,6 +65,7 @@ type Props = {
 const PredefinedAvatarSelector: FC<Props> = ({ icon, color, setIcon, setColor, disabled }) => {
   const [t] = useTranslation("plugins");
   const [avatarModal, setAvatarModal] = useState(false);
+  const [initialFocusNode, setInitialFocusNode] = useState<HTMLButtonElement | null>(null);
 
   const renderIconPalette = (label: string, icons: string[]) => {
     return (
@@ -68,7 +73,14 @@ const PredefinedAvatarSelector: FC<Props> = ({ icon, color, setIcon, setColor, d
         <StyledLabel>{label}</StyledLabel>
         <Palette>
           {icons.map((iconName, index) => (
-            <Chooser onClick={() => setIcon(iconName)} color="white" key={index}>
+            <Chooser
+              onClick={() => setIcon(iconName)}
+              color="white"
+              key={index}
+              onKeyPress={(event: React.KeyboardEvent<HTMLButtonElement>) =>
+                event.key === "Enter" && setAvatarModal(false)
+              }
+            >
               <PredefinedAvatar avatar={{ type: "PREDEFINED", iconName, color, _links: {} }} />
             </Chooser>
           ))}
@@ -93,8 +105,17 @@ const PredefinedAvatarSelector: FC<Props> = ({ icon, color, setIcon, setColor, d
             <hr />
             <StyledLabel>{t("scm-repository-avatar-plugin.avatarSelector.colors")}</StyledLabel>
             <Palette>
-              {colors.map(c => (
-                <Chooser onClick={() => setColor(c)}>
+              {colors.map((c, index) => (
+                <Chooser
+                  onClick={() => setColor(c)}
+                  ref={index === 0 ? setInitialFocusNode : undefined}
+                  onKeyPress={(event: React.KeyboardEvent<HTMLButtonElement>) => {
+                    if (event.key === "Enter") {
+                      setColor(c);
+                      setAvatarModal(false);
+                    }
+                  }}
+                >
                   <PredefinedAvatar avatar={{ iconName: icon, color: c, type: "PREDEFINED", _links: {} }} />
                 </Chooser>
               ))}
@@ -109,6 +130,7 @@ const PredefinedAvatarSelector: FC<Props> = ({ icon, color, setIcon, setColor, d
         title={t("scm-repository-avatar-plugin.avatarSelector.avatarModal")}
         closeFunction={() => setAvatarModal(false)}
         closeButtonLabel={t("scm-repository-avatar-plugin.avatarSelector.selectButton")}
+        initialFocusNode={initialFocusNode}
       />
     );
   };
