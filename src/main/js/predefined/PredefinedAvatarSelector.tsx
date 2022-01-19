@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-import React, { FC, useState } from "react";
+import React, { FC, useRef, useState } from "react";
 import { Button, FullscreenModal } from "@scm-manager/ui-components";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
@@ -65,7 +65,7 @@ type Props = {
 const PredefinedAvatarSelector: FC<Props> = ({ icon, color, setIcon, setColor, disabled }) => {
   const [t] = useTranslation("plugins");
   const [avatarModal, setAvatarModal] = useState(false);
-  const [initialFocusNode, setInitialFocusNode] = useState<HTMLButtonElement | null>(null);
+  const initialFocusRef = useRef<HTMLButtonElement>(null);
 
   const renderIconPalette = (label: string, icons: string[]) => {
     return (
@@ -77,9 +77,12 @@ const PredefinedAvatarSelector: FC<Props> = ({ icon, color, setIcon, setColor, d
               onClick={() => setIcon(iconName)}
               color="white"
               key={index}
-              onKeyPress={(event: React.KeyboardEvent<HTMLButtonElement>) =>
-                event.key === "Enter" && setAvatarModal(false)
-              }
+              onKeyPress={(event: React.KeyboardEvent<HTMLButtonElement>) => {
+                if (event.key === "Enter") {
+                  setIcon(iconName);
+                  setAvatarModal(false);
+                }
+              }}
             >
               <PredefinedAvatar avatar={{ type: "PREDEFINED", iconName, color, _links: {} }} />
             </Chooser>
@@ -89,12 +92,17 @@ const PredefinedAvatarSelector: FC<Props> = ({ icon, color, setIcon, setColor, d
     );
   };
 
-  const renderAvatarModal = () => {
-    if (!avatarModal) {
-      return null;
-    }
-
-    return (
+  return (
+    <Selector>
+      <AvatarPreview
+        avatar={<PredefinedAvatar avatar={{ iconName: icon, color: color, type: "PREDEFINED", _links: {} }} />}
+      />
+      <Button
+        color="info"
+        action={() => setAvatarModal(true)}
+        label={t("scm-repository-avatar-plugin.avatarSelector.avatarModal")}
+        disabled={disabled}
+      />
       <FullscreenModal
         body={
           <>
@@ -108,7 +116,7 @@ const PredefinedAvatarSelector: FC<Props> = ({ icon, color, setIcon, setColor, d
               {colors.map((c, index) => (
                 <Chooser
                   onClick={() => setColor(c)}
-                  ref={index === 0 ? setInitialFocusNode : undefined}
+                  ref={index === 0 ? initialFocusRef : undefined}
                   onKeyPress={(event: React.KeyboardEvent<HTMLButtonElement>) => {
                     if (event.key === "Enter") {
                       setColor(c);
@@ -130,23 +138,8 @@ const PredefinedAvatarSelector: FC<Props> = ({ icon, color, setIcon, setColor, d
         title={t("scm-repository-avatar-plugin.avatarSelector.avatarModal")}
         closeFunction={() => setAvatarModal(false)}
         closeButtonLabel={t("scm-repository-avatar-plugin.avatarSelector.selectButton")}
-        initialFocusNode={initialFocusNode}
+        initialFocusRef={initialFocusRef}
       />
-    );
-  };
-
-  return (
-    <Selector>
-      <AvatarPreview
-        avatar={<PredefinedAvatar avatar={{ iconName: icon, color: color, type: "PREDEFINED", _links: {} }} />}
-      />
-      <Button
-        color="info"
-        action={() => setAvatarModal(true)}
-        label={t("scm-repository-avatar-plugin.avatarSelector.avatarModal")}
-        disabled={disabled}
-      />
-      {renderAvatarModal()}
     </Selector>
   );
 };
