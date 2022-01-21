@@ -43,8 +43,6 @@ const Chooser = styled.button`
   margin-right: 1rem;
   margin-bottom: 0.75rem;
   padding: 0;
-  border: 0;
-  background: transparent;
   border-radius: 5px;
 `;
 
@@ -77,6 +75,7 @@ const PredefinedAvatarSelector: FC<Props> = ({ icon, color, setIcon, setColor, d
               onClick={() => setIcon(iconName)}
               color="white"
               key={index}
+              className="button"
               onKeyPress={(event: React.KeyboardEvent<HTMLButtonElement>) => {
                 if (event.key === "Enter") {
                   setIcon(iconName);
@@ -115,6 +114,7 @@ const PredefinedAvatarSelector: FC<Props> = ({ icon, color, setIcon, setColor, d
             <Palette>
               {colors.map((c, index) => (
                 <Chooser
+                  className="button"
                   onClick={() => setColor(c)}
                   ref={index === 0 ? initialFocusRef : undefined}
                   onKeyPress={(event: React.KeyboardEvent<HTMLButtonElement>) => {
