@@ -23,7 +23,7 @@
  */
 
 plugins {
-  id 'org.scm-manager.smp' version '0.10.3'
+  id 'org.scm-manager.smp' version '0.15.0'
 }
 
 dependencies {
@@ -37,7 +37,7 @@ dependencies {
 }
 
 scmPlugin {
-  scmVersion = "2.30.0"
+  scmVersion = "2.41.1-SNAPSHOT"
   displayName = "Repository Avatar"
   description = "Enables different types of custom repository avatars"
   author = "Cloudogu GmbH"

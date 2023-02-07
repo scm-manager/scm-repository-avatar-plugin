@@ -36,7 +36,7 @@ const SvgIcon: FC<Props> = ({ text, iconColor, backgroundColor, className }) => 
   return (
     <svg viewBox="0 0 64 64" className={classNames("is-family-monospace", className)}>
       <rect width="64px" height="64px" fill={backgroundColor} rx="5px" ry="5px" />
-      <text x="7" y="47" fill={iconColor} fontSize="2.5em">
+      <text x="32" y="32" fill={iconColor} fontSize="2.5em" dominantBaseline="central" textAnchor="middle">
         {text}
       </text>
     </svg>

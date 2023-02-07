@@ -28,28 +28,28 @@ import { Avatar } from "../avatars";
 import styled from "styled-components";
 
 const IconWrapper = styled.div`
-  width: 64px;
-  height: 64px;
-  font-size: 2.5em;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 100%;
+  font-size: 2.5em;
 `;
 
 type Props = {
   avatar: Avatar;
 };
 
-const PredefinedAvatar: FC<Props> = ({ avatar }) => (
-  <svg viewBox="0 0 64 64">
-    <rect width="64px" height="64px" fill={avatar.color || "#363636"} rx="5px" ry="5px" />
-    <foreignObject x="0" y="0" width="64px" height="64px">
-      <IconWrapper>
-        <Icon name={avatar.iconName || "bug"} color="white" />
-      </IconWrapper>
-    </foreignObject>
-  </svg>
-);
+const PredefinedAvatar: FC<Props> = ({ avatar }) => {
+  return (
+    <svg viewBox="0 0 64 64">
+      <rect width="64px" height="64px" fill={avatar.color || "#363636"} rx="5px" ry="5px" />
+      <foreignObject x="0" y="0" width="64px" height="64px">
+        <IconWrapper>
+          <Icon name={avatar.iconName || "bug"} color="white" />
+        </IconWrapper>
+      </foreignObject>
+    </svg>
+  );
+};
 
 export default PredefinedAvatar;

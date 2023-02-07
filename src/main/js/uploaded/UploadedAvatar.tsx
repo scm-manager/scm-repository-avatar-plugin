@@ -29,17 +29,16 @@ import placeholder from "./placeholder.svg";
 
 const StyledImage = styled.img`
   border-radius: 5px;
-  width: 64px;
-  height: 64px;
   margin-bottom: -0.4rem;
 `;
 
 type Props = {
   imageLink: string;
+  size: number;
 };
 
-const UploadedAvatar: FC<Props> = ({ imageLink }) => {
-  return <StyledImage src={imageLink || placeholder} alt="Avatar Preview" />;
+const UploadedAvatar: FC<Props> = ({ imageLink, size = 64 }) => {
+  return <StyledImage src={imageLink || placeholder} alt="Avatar Preview" className={`image is-${size}x${size}`} />;
 };
 
 export default UploadedAvatar;
