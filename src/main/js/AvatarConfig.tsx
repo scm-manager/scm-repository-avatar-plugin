@@ -23,7 +23,7 @@ import {
   Notification,
   Select,
   SubmitButton,
-  Subtitle
+  Subtitle,
 } from "@scm-manager/ui-components";
 import { useTranslation } from "react-i18next";
 import { colors, fileSizeLimit, isFileExtensionInvalid, Avatar, technologyIcons, AvatarType } from "./avatars";
@@ -50,7 +50,7 @@ const AvatarConfig: FC<Props> = ({ repository }) => {
   };
 
   const getAvatarLinkByName = (name: string) => {
-    return (repository._links.updateAvatar as Link[]).filter(link => link.name === name)[0].href;
+    return (repository._links.updateAvatar as Link[]).filter((link) => link.name === name)[0].href;
   };
 
   const submitAvatar = () => {
@@ -66,14 +66,14 @@ const AvatarConfig: FC<Props> = ({ repository }) => {
         .post(
           getAvatarLinkByName("predefined"),
           { iconName: icon, color },
-          "application/vnd.scmm-repository-avatar+json"
+          "application/vnd.scmm-repository-avatar+json",
         )
         .then(() => setSubmitNotification(true))
         .catch(setError);
     }
     if (avatarType === "UPLOADED") {
       apiClient
-        .postBinary(getAvatarLinkByName("upload"), formData => {
+        .postBinary(getAvatarLinkByName("upload"), (formData) => {
           formData.append("file", file);
         })
         .then(() => setSubmitNotification(true))
@@ -113,14 +113,15 @@ const AvatarConfig: FC<Props> = ({ repository }) => {
     <>
       <hr />
       <Subtitle subtitle={t("scm-repository-avatar-plugin.avatarConfig.subtitle")} />
+      <p className="mb-3">{t("scm-repository-avatar-plugin.avatarConfig.accessibilityHint")}</p>
       <Select
         label={t("scm-repository-avatar-plugin.avatarTypes.label")}
         options={[
           { label: t("scm-repository-avatar-plugin.avatarTypes.auto.label"), value: "AUTO_GENERATED" },
           { label: t("scm-repository-avatar-plugin.avatarTypes.predefined.label"), value: "PREDEFINED" },
-          { label: t("scm-repository-avatar-plugin.avatarTypes.uploaded.label"), value: "UPLOADED" }
+          { label: t("scm-repository-avatar-plugin.avatarTypes.uploaded.label"), value: "UPLOADED" },
         ]}
-        onChange={value => changeAvatarType(value as AvatarType)}
+        onChange={(value) => changeAvatarType(value as AvatarType)}
         value={avatarType}
         name={avatarType}
         disabled={!repository._links.update}

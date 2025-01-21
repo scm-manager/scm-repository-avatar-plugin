@@ -7,7 +7,8 @@
       "preview": "Preview",
       "uploadLimit": "File is too large. Please choose an image that is smaller than 5 MB.",
       "uploadInfo": "Max. 5 MB. Your uploaded avatar will be scaled to 64x64 pixels.",
-      "invalidImageFormat": "Selected filetype is not supported. Please choose an image of the following formats: jpg, jpeg, gif, png, svg, tiff"
+      "invalidImageFormat": "Selected filetype is not supported. Please choose an image of the following formats: jpg, jpeg, gif, png, svg, tiff",
+      "accessibilityHint": "Hint: Assistive technologies will skip the avatar in the list of repositories and presents you the name of the repository. You may configure an avatar while using assistive technologies."
     },
     "avatarTypes": {
       "label": "Choose avatar",
@@ -21,12 +22,15 @@
       },
       "uploaded": {
         "label": "Uploaded avatar",
-        "helpText": "The avatar will be created from an uploaded image in 64x64 pixel format."
+        "helpText": "The avatar will be created from an uploaded image in 64x64 pixel format.",
+        "description": "Custom uploaded file"
       }
     },
     "avatarSelector": {
+      "avatarName": "avatar: {{name}}",
       "avatarModal": "Select avatar",
       "selectButton": "Select",
+      "color": "color: {{color}}",
       "colors": "Colors",
       "icons": {
         "technology": "Technology icons",
@@ -34,6 +38,60 @@
         "science": "Science icons",
         "other": "Other icons"
       }
+    },
+    "predefinedAvatars": {
+        "bug": "bug",
+        "cloud": "cloud",
+        "cogs": "cogs",
+        "gamepad": "gamepad",
+        "lock": "lock",
+        "microphone": "microphone",
+        "shield-alt": "shield",
+        "user-secret": "spy",
+        "virus": "virus",
+        "wifi": "wifi",
+        "mobile-alt": "mobile",
+        "server": "server",
+        "tablet-alt": "tablet",
+        "at": "@",
+        "balance-scale": "scale",
+        "globe-europe": "globe",
+        "map-marker-alt": "map marker",
+        "wallet": "wallet",
+        "truck": "truck",
+        "shopping-cart": "shopping cart",
+        "credit-card": "credit card",
+        "gem": "gem",
+        "coins": "coins",
+        "box-open": "open box",
+        "cat": "cat",
+        "dragon": "dagon",
+        "feather": "feather",
+        "fire": "fire",
+        "heart": "heart",
+        "kiwi-bird": "bird kiwi",
+        "leaf": "leaf",
+        "moon": "moon",
+        "palette": "palette",
+        "poo": "poo",
+        "spider": "spider",
+        "tint": "drop",
+        "glasses": "glasses",
+        "umbrella": "umbrella",
+        "atom": "atom",
+        "award": "award",
+        "biohazard": "sign biohazard",
+        "briefcase-medical": "medical briefcase",
+        "compass": "compass"
+    },
+    "colors": {
+      "#363636": "charcoal",
+      "#175069": "grayish blue",
+      "#00949e": "petrol",
+      "#00876a": "leafy green",
+      "#bf8900": "sandy brown",
+      "#ff3860": "bright red",
+      "#de168f": "red pink"
     }
   }
 }

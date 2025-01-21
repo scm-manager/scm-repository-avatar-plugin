@@ -75,6 +75,7 @@ const AvatarUploader: FC<Props> = ({ repository, file, setFile, disabled }) => {
                 }
               />
             }
+            upload={true}
           />
         </div>
         {repository?._links?.updateAvatar && (

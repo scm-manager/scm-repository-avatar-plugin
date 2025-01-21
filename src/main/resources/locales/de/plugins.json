@@ -7,7 +7,8 @@
       "preview": "Vorschau",
       "uploadLimit": "Die Datei ist zu groß. Bitte wählen Sie eine Bilddatei unter 5 MB.",
       "uploadInfo": "Max. 5 MB. Hochgeladene Avatare werden auf 64x64 Pixel skaliert.",
-      "invalidImageFormat": "Das ausgewählte Dateiformat wird nicht unterstützt. Bitte nutzen Sie eines der folgenden Bildformate: jpg, jpeg, gif, png, svg"
+      "invalidImageFormat": "Das ausgewählte Dateiformat wird nicht unterstützt. Bitte nutzen Sie eines der folgenden Bildformate: jpg, jpeg, gif, png, svg",
+      "accessibilityHint": "Hinweis: Assistive Technologie überspringt den ausgewählten Repository-Avatar in der Repository-Liste und präsentiert direkt den Namen des Repositories. Sie können den Avatar dennoch mit assistiven Technologien konfigurieren."
     },
     "avatarTypes": {
       "label": "Avatar wählen",
@@ -21,12 +22,15 @@
       },
       "uploaded": {
         "label": "Hochgeladener Avatar",
-        "helpText": "Das Avatar wird aus einem hochgeladenen Bild im Format 64x64 Pixel erzeugt."
+        "helpText": "Das Avatar wird aus einem hochgeladenen Bild im Format 64x64 Pixel erzeugt.",
+        "description": "Individuell hochgeladene Datei"
       }
     },
     "avatarSelector": {
+      "avatarName": "Avatar: {{name}}",
       "avatarModal": "Avatar auswählen",
       "selectButton": "Auswählen",
+      "color": "Farbe: {{color}}",
       "colors": "Farben",
       "icons": {
         "technology": "Technologische Icons",
@@ -34,6 +38,60 @@
         "science": "Wissenschaftliche Icons",
         "other": "Sonstige Icons"
       }
+    },
+    "predefinedAvatars": {
+      "bug": "Käfer",
+      "cloud": "Wolke",
+      "cogs": "Zahnräder",
+      "gamepad": "Gamepad",
+      "lock": "Schloss",
+      "microphone": "Mikrofon",
+      "shield-alt": "Schild",
+      "user-secret": "Spion",
+      "virus": "Virus",
+      "wifi": "Wlan",
+      "mobile-alt": "Mobiltelefon",
+      "server": "Server",
+      "tablet-alt": "Tablet",
+      "at": "@",
+      "balance-scale": "Waage",
+      "globe-europe": "Globus",
+      "map-marker-alt": "Ortsmarkierung",
+      "wallet": "Brieftasche",
+      "truck": "LKW",
+      "shopping-cart": "Einkaufwagen",
+      "credit-card": "Kreditkarte",
+      "gem": "Edelstein",
+      "coins": "Münzen",
+      "box-open": "Offene Kiste",
+      "cat": "Katze",
+      "dragon": "Drache",
+      "feather": "Feder",
+      "fire": "Feuer",
+      "heart": "Herz",
+      "kiwi-bird": "Vogel Kiwi",
+      "leaf": "Laubblatt",
+      "moon": "Mond",
+      "palette": "Farbpalette",
+      "poo": "Kot",
+      "spider": "Spinne",
+      "tint": "Tropfen",
+      "glasses": "Brille",
+      "umbrella": "Regenschirm",
+      "atom": "Atom",
+      "award": "Auszeichnung",
+      "biohazard": "Warnzeichen biologische Gefahr",
+      "briefcase-medical": "Medizinkoffer",
+      "compass": "Kompass"
+    },
+    "colors": {
+      "#363636": "Holzkohle",
+      "#175069": "Graublau",
+      "#00949e": "Petrol",
+      "#00876a": "Blattgrün",
+      "#bf8900": "Sandbraun",
+      "#ff3860": "Hellrot",
+      "#de168f": "Rot-Pink"
     }
   }
 }

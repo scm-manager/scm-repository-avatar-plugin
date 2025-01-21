@@ -45,7 +45,7 @@ const AvatarGate: FC<Props> = ({ repository, size = 64 }) => {
 
 const AvatarRenderer: FC<Props> = ({ repository, size }) => {
   return (
-    <AvatarWrapper>
+    <AvatarWrapper aria-hidden="true">
       <AvatarGate repository={repository} size={size} />
     </AvatarWrapper>
   );

@@ -30,7 +30,7 @@ type Props = {
 };
 
 const UploadedAvatar: FC<Props> = ({ imageLink, size = 64 }) => {
-  return <StyledImage src={imageLink || placeholder} alt="Avatar Preview" className={`image is-${size}x${size}`} />;
+  return <StyledImage src={imageLink || placeholder} className={`image is-${size}x${size}`} aria-hidden="true" />;
 };
 
 export default UploadedAvatar;

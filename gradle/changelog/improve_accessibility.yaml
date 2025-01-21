@@ -1,0 +1,3 @@
+- type: fixed
+  description: Hide the repository avatar from assistive technologies in the list of repositories while making it accessible in the configuration dialoge.
+
