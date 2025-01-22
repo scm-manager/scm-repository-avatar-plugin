@@ -1,7 +1,7 @@
 {
     "name": "@scm-manager/scm-repository-avatar-plugin",
     "private": true,
-    "version": "3.0.1-SNAPSHOT",
+    "version": "3.0.1",
     "license": "AGPL-3.0-only",
     "main": "./src/main/js/index.tsx",
     "scripts": {
@@ -67,7 +67,7 @@
         "jest": "^24.9.0",
         "@scm-manager/plugin-scripts": "^1.6.0"
     },
-  "resolutions": {
-    "@types/react": "^17.0.1"
-  }
+    "resolutions": {
+        "@types/react": "^17.0.1"
+    }
 }
