@@ -16,18 +16,11 @@
 
 import React, { FC, useState } from "react";
 import { Link, Repository, File } from "@scm-manager/ui-types";
-import {
-  apiClient,
-  ErrorNotification,
-  Level,
-  Notification,
-  Select,
-  SubmitButton,
-  Subtitle,
-} from "@scm-manager/ui-components";
 import { useTranslation } from "react-i18next";
 import { colors, fileSizeLimit, isFileExtensionInvalid, Avatar, technologyIcons, AvatarType } from "./avatars";
 import AvatarForms from "./AvatarForms";
+import { Button, ButtonVariants, ErrorNotification, Level, Select, Subtitle, Notification } from "@scm-manager/ui-core";
+import { apiClient } from "@scm-manager/ui-api";
 
 type Props = {
   repository: Repository;
@@ -42,12 +35,6 @@ const AvatarConfig: FC<Props> = ({ repository }) => {
   const [icon, setIcon] = useState(oldAvatar.iconName || technologyIcons[0]);
   const [file, setFile] = useState<File>();
   const [error, setError] = useState<Error | undefined>();
-
-  const changeAvatarType = (value: AvatarType) => {
-    if (value) {
-      setAvatarType(value);
-    }
-  };
 
   const getAvatarLinkByName = (name: string) => {
     return (repository._links.updateAvatar as Link[]).filter((link) => link.name === name)[0].href;
@@ -115,17 +102,20 @@ const AvatarConfig: FC<Props> = ({ repository }) => {
       <Subtitle subtitle={t("scm-repository-avatar-plugin.avatarConfig.subtitle")} />
       <p className="mb-3">{t("scm-repository-avatar-plugin.avatarConfig.accessibilityHint")}</p>
       <Select
-        label={t("scm-repository-avatar-plugin.avatarTypes.label")}
+        className="focus-zone"
         options={[
           { label: t("scm-repository-avatar-plugin.avatarTypes.auto.label"), value: "AUTO_GENERATED" },
           { label: t("scm-repository-avatar-plugin.avatarTypes.predefined.label"), value: "PREDEFINED" },
           { label: t("scm-repository-avatar-plugin.avatarTypes.uploaded.label"), value: "UPLOADED" },
         ]}
-        onChange={(value) => changeAvatarType(value as AvatarType)}
+        onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+          setAvatarType(event.currentTarget.value as AvatarType);
+        }}
         value={avatarType}
-        name={avatarType}
         disabled={!repository._links.update}
-      />
+      >
+        {t("scm-repository-avatar-plugin.avatarTypes.label")}
+      </Select>
       <AvatarForms
         repository={repository}
         avatarType={avatarType}
@@ -139,12 +129,13 @@ const AvatarConfig: FC<Props> = ({ repository }) => {
       {renderNotifications()}
       <Level
         right={
-          <SubmitButton
+          <Button
             disabled={!isValid() || (avatarType === "UPLOADED" && !file)}
-            label={t("scm-repository-avatar-plugin.avatarConfig.submit")}
-            action={() => submitAvatar()}
-            scrollToTop={false}
-          />
+            variant={ButtonVariants.PRIMARY}
+            onClick={() => submitAvatar()}
+          >
+            {t("scm-repository-avatar-plugin.avatarConfig.submit")}
+          </Button>
         }
       />
     </>

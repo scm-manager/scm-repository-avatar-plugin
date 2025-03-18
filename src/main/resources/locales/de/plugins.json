@@ -1,7 +1,7 @@
 {
   "scm-repository-avatar-plugin": {
     "avatarConfig": {
-      "subtitle": "Avatar Konfiguration",
+      "subtitle": "Avatar-Konfiguration",
       "submit": "Avatar speichern",
       "submitNotification": "Der Avatar wurde erfolgreich aktualisiert.",
       "preview": "Vorschau",
@@ -91,7 +91,7 @@
       "#00876a": "Blattgrün",
       "#bf8900": "Sandbraun",
       "#ff3860": "Hellrot",
-      "#de168f": "Rot-Pink"
+      "#de168f": "Magenta"
     }
   }
 }
