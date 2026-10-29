@@ -26,7 +26,7 @@ const StyledImage = styled.img`
 
 type Props = {
   imageLink: string;
-  size: number;
+  size?: number;
 };
 
 const UploadedAvatar: FC<Props> = ({ imageLink, size = 64 }) => {

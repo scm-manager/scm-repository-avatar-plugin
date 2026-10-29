@@ -14,13 +14,13 @@
  * along with this program. If not, see https://www.gnu.org/licenses/.
  */
 
-import React, { FC, ReactChild } from "react";
+import React, {FC, ReactNode} from "react";
 import StyledLabel from "../StyledLabel";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 
 type Props = {
-  avatar: ReactChild;
+  avatar: ReactNode;
   className?: string;
   name?: string;
   color?: string;

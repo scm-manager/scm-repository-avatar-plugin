@@ -14,11 +14,11 @@
  * along with this program. If not, see https://www.gnu.org/licenses/.
  */
 
-import React from "react";
+import React, { PropsWithChildren } from "react";
 import { FC } from "react";
 import classNames from "classnames";
 
-const StyledLabel: FC = ({ children }) => {
+const StyledLabel: FC<PropsWithChildren> = ({ children }) => {
   return (
     <span
       className={classNames("is-block", "is-size-6", "has-text-weight-semibold", "has-text-secondary-more", "mb-2")}
